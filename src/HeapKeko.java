@@ -1,5 +1,10 @@
 import java.util.Random;
 
+/**
+ *Lajitellaan kokonaislukutaulukko suuruusjärjestykseen kekolajittelulla
+ * @author Esa Kesti
+ */
+
 public class HeapKeko {
 
     public void sort(int taulukko[])
@@ -58,7 +63,10 @@ public class HeapKeko {
         System.out.println();
     }
 
-    // Driver code
+    /**
+     * @param args ei käytössä
+     * Luodaan taulukko ja lisätään kokonaislukuja random luokan avulla
+     */
     public static void main(String args[])
     {
         int min = 1;
@@ -68,11 +76,10 @@ public class HeapKeko {
         //int n = taulukko.length;
         for(int i = 0; i < taulukko.length; ++i)
             taulukko[i] = satunnainen.nextInt(max + min) +min;
-        System.out.println(taulukko);
         HeapKeko ob = new HeapKeko();
         ob.sort(taulukko);
 
-        System.out.println("Sorted array is");
+        System.out.println("Järjestetty taulukko: ");
         printArray(taulukko);
     }
 }
