@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class HeapKeko {
 
     public void sort(int taulukko[])
@@ -59,9 +61,12 @@ public class HeapKeko {
     // Driver code
     public static void main(String args[])
     {
-        int taulukko[] = { 12, 11, 13, 5, 6, 7 };
-        int n = taulukko.length;
-
+        Random satunnainen = new Random();
+        int taulukko[] = new int[8];
+        //int n = taulukko.length;
+        for(int i = 0; i < taulukko.length; ++i)
+            taulukko[i] = satunnainen.nextInt();
+        System.out.println(taulukko);
         HeapKeko ob = new HeapKeko();
         ob.sort(taulukko);
 
