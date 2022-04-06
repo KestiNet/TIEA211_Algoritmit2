@@ -61,11 +61,13 @@ public class HeapKeko {
     // Driver code
     public static void main(String args[])
     {
+        int min = 1;
+        int max = 50;
         Random satunnainen = new Random();
         int taulukko[] = new int[8];
         //int n = taulukko.length;
         for(int i = 0; i < taulukko.length; ++i)
-            taulukko[i] = satunnainen.nextInt();
+            taulukko[i] = satunnainen.nextInt(max + min) +min;
         System.out.println(taulukko);
         HeapKeko ob = new HeapKeko();
         ob.sort(taulukko);
