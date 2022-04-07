@@ -10,52 +10,48 @@ public class HeapKeko {
     public void sort(int taulukko[])
     {
         int n = taulukko.length;
-
-        // Build heap (rearrange array)
+        //Aletaan rakentamaan kekoa
         for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(taulukko, n, i);
+            kekoa(taulukko, n, i);
 
-        // One by one extract an element from heap
         for (int i = n - 1; i > 0; i--) {
-            // Move current root to end
             int temp = taulukko[0];
             taulukko[0] = taulukko[i];
             taulukko[i] = temp;
 
-            // call max heapify on the reduced heap
-            heapify(taulukko, i, 0);
+            kekoa(taulukko, i, 0);
         }
     }
 
     // To heapify a subtree rooted with node i which is
     // an index in arr[]. n is size of heap
-    void heapify(int taulukko[], int n, int i)
+    void kekoa(int taulukko[], int n, int i)
     {
-        int largest = i; // Initialize largest as root
-        int l = 2 * i + 1; // left = 2*i + 1
-        int r = 2 * i + 2; // right = 2*i + 2
+        int suurin = i; // Initialize largest as root
+        int j = 2 * i + 1; // left = 2*i + 1
+        int k = 2 * i + 2; // right = 2*i + 2
 
         // If left child is larger than root
-        if (l < n && taulukko[l] > taulukko[largest])
-            largest = l;
+        if (j < n && taulukko[j] > taulukko[suurin])
+            suurin = j;
 
         // If right child is larger than largest so far
-        if (r < n && taulukko[r] > taulukko[largest])
-            largest = r;
+        if (k < n && taulukko[k] > taulukko[suurin])
+            suurin = k;
 
         // If largest is not root
-        if (largest != i) {
-            int swap = taulukko[i];
-            taulukko[i] = taulukko[largest];
-            taulukko[largest] = swap;
+        if (suurin != i) {
+            int swappi = taulukko[i];
+            taulukko[i] = taulukko[suurin];
+            taulukko[suurin] = swappi;
 
             // Recursively heapify the affected sub-tree
-            heapify(taulukko, n, largest);
+            kekoa(taulukko, n, suurin);
         }
     }
 
-    /* A utility function to print array of size n */
-    static void printArray(int taulukko[])
+    //Tulostetaan taulukko
+    static void tulostaTaulukko(int taulukko[])
     {
         int n = taulukko.length;
         for (int i = 0; i < n; ++i)
@@ -66,11 +62,12 @@ public class HeapKeko {
     /**
      * @param args ei käytössä
      * Luodaan taulukko ja lisätään kokonaislukuja random luokan avulla
+     * Kutsutaan aliohjelmaa myös tulostamaan
      */
     public static void main(String args[])
     {
         int min = 1;
-        int max = 50;
+        int max = 317;
         Random satunnainen = new Random();
         int taulukko[] = new int[8];
         //int n = taulukko.length;
@@ -80,6 +77,6 @@ public class HeapKeko {
         ob.sort(taulukko);
 
         System.out.println("Järjestetty taulukko: ");
-        printArray(taulukko);
+        tulostaTaulukko(taulukko);
     }
 }
