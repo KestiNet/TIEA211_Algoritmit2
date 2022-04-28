@@ -1,73 +1,88 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Vector;
  
-// A class to represent a disjoint set
 public class UnionFind{
-    private Map<Integer, Integer> parent = new HashMap<>();
- 
-    // perform MakeSet operation
-    public void makeSet(int[] universe)
-    {
-        // create `n` disjoint sets (one for each item)
-        for (int i: universe) {
-            parent.put(i, i);
-        }
+	
+	private Vector <Integer>p, rank, SetSize;
+	private int numSets;
+	
+	public UnionFind(int N) {
+		
+		p = new Vector<Integer>(N);
+		rank = new Vector<Integer>(N);
+		SetSize = new Vector<Integer>(N);
+		
+		numSets = N;
+		
+		for(int i = 0; i < N; i++) {
+			p.add(i);
+			rank.add(0);
+			SetSize.add(1);
+		}
+
+	}
+	
+	public int findSet(int i) {
+		if(p.get(i)==i) {
+			return i;
+		}else {
+			int ret = findSet(p.get(i));
+			p.set(i, ret);
+			return ret;
+		}
+		
+	}
+	
+	public boolean isSameSet(int i, int j) {
+		return findSet(i) == findSet(j); 
+	}
+	
+	
+	public void UnionSet(int i, int j) {
+		if(!isSameSet(i, j)) {
+			numSets--;
+			
+			int x = findSet(i);
+			int y = findSet(j);
+			
+			if(rank.get(x) > rank.get(y)) {
+				p.set(y, x);
+				SetSize.set(x, SetSize.get(x) + SetSize.get(y));
+				
+			}else {
+				p.set(x, y);
+				SetSize.set(y,SetSize.get(x) + SetSize.get(y));
+				if (rank.get(x) == rank.get(y)) {
+					rank.set(y, rank.get(y) +1);
+				}
+				
+			}
+		}
+	}
+	
+	public int NumberOfSubSets() {
+		return numSets;
+	}
+	
+	
+	public int GetSetSize(int i) {
+		return SetSize.get(p.get(i));
+	}
+	
+	
+    public static void main(String[] args){
+    	//String [] uniFi = {"kiuru", "lokki", "rastas", "sorsa", "varis"};
+    	try {
+    	UnionFind UF = new UnionFind(10);
+    	System.out.println("11 is in the UF:" + UF.findSet(11));
+    	UF.UnionSet(3,4);
+    	System.out.println("4 and 3 is in the UF:" + UF.isSameSet(3,4));
+
+    	
+    }catch(Exception e) {
+    	System.out.println("Alkio ei ole joukossa");
     }
- 
-    // Find the root of the set in which element `k` belongs
-    public int Find(int k)
-    {
-        // if `k` is root
-        if (parent.get(k) == k) {
-            return k;
-        }
- 
-        // recur for the parent until we find the root
-        return Find(parent.get(k));
-    }
- 
-    // Perform Union of two subsets
-    public void Union(int a, int b)
-    {
-        // find the root of the sets in which elements `x` and `y` belongs
-        int x = Find(a);
-        int y = Find(b);
- 
-        parent.put(x, y);
-    }
+
+    
+    
 }
- 
-class Main
-{
-    public static void printSets(int[] universe, UnionFind ds)
-    {
-        for (int i: universe) {
-            System.out.print(ds.Find(i) + " ");
-        }
- 
-        System.out.println();
-    }
- 
-    // Disjoint–Set data structure (Union–Find algorithm)
-    public static void main(String[] args)
-    {
-        // universe of items
-        int[] universe = { 1, 2, 3, 4, 5 };
- 
-        // initialize `DisjointSet` class
-        UnionFind ds = new UnionFind();
- 
-        // create a singleton set for each element of the universe
-        ds.makeSet(universe);
-        printSets(universe, ds);
- 
-        ds.Union(4, 3);        // 4 and 3 are in the same set
-        printSets(universe, ds);
- 
-        ds.Union(2, 1);        // 1 and 2 are in the same set
-        printSets(universe, ds);
- 
-        ds.Union(1, 3);        // 1, 2, 3, 4 are in the same set
-        printSets(universe, ds);
-    }
 }
