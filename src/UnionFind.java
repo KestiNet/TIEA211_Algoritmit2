@@ -1,20 +1,23 @@
+
 import java.util.Vector;
  
 public class UnionFind{
-	
-	private Vector <Integer>p, rank, SetSize;
+/**	
+	private Vector <Integer>l, rank, SetSize;
 	private int numSets;
 	
 	public UnionFind(int N) {
 		
-		p = new Vector<Integer>(N);
+		l = new Vector<Integer>(N);
 		rank = new Vector<Integer>(N);
 		SetSize = new Vector<Integer>(N);
+		
+		//p.add("koira");
 		
 		numSets = N;
 		
 		for(int i = 0; i < N; i++) {
-			p.add(i);
+			l.add(i);
 			rank.add(0);
 			SetSize.add(1);
 		}
@@ -22,11 +25,11 @@ public class UnionFind{
 	}
 	
 	public int findSet(int i) {
-		if(p.get(i)==i) {
+		if(l.get(i)==i) {
 			return i;
 		}else {
 			int ret = findSet(p.get(i));
-			p.set(i, ret);
+			l.set(i, ret);
 			return ret;
 		}
 		
@@ -45,11 +48,11 @@ public class UnionFind{
 			int y = findSet(j);
 			
 			if(rank.get(x) > rank.get(y)) {
-				p.set(y, x);
+				l.set(y, x);
 				SetSize.set(x, SetSize.get(x) + SetSize.get(y));
 				
 			}else {
-				p.set(x, y);
+				l.set(x, y);
 				SetSize.set(y,SetSize.get(x) + SetSize.get(y));
 				if (rank.get(x) == rank.get(y)) {
 					rank.set(y, rank.get(y) +1);
@@ -70,7 +73,7 @@ public class UnionFind{
 	
 	
     public static void main(String[] args){
-    	//String [] uniFi = {"kiuru", "lokki", "rastas", "sorsa", "varis"};
+    	String [] uniFi = {"kiuru", "lokki", "rastas", "sorsa", "varis"};
     	try {
     	UnionFind UF = new UnionFind(10);
     	System.out.println("11 is in the UF:" + UF.findSet(11));
@@ -85,4 +88,9 @@ public class UnionFind{
     
     
 }
-}
+ * @param args 
+
+**/
+	 public static void main(String[] args) {
+	 }
+	 }
