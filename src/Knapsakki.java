@@ -1,5 +1,5 @@
-import java.util.*;
-class Knapsakki {
+
+public class Knapsakki {
 
 	
 	static int max(int a, int b)
@@ -8,29 +8,29 @@ class Knapsakki {
 	}
 
 	
-	static int sakki(int W, int wt[], int val[], int n){
+	static int sakki(int kapasiteetti, int paino[], int arvo[], int n){
 		int i, w;
-		int K[][] = new int[n + 1][W + 1];
+		int K[][] = new int[n + 1][kapasiteetti + 1];
 
 		for (i = 0; i <= n; i++) {
-			for (w = 0; w <= W; w++) {
+			for (w = 0; w <= kapasiteetti; w++) {
 				if (i == 0 || w == 0) K[i][w] = 0;
-				else if (wt[i - 1] <= w) K[i][w] = Math.max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w]);
+				else if (paino[i - 1] <= w) K[i][w] = Math.max(arvo[i - 1] + K[i - 1][w - paino[i - 1]], K[i - 1][w]);
 				else
 					K[i][w] = K[i - 1][w];
 			}
 		}
 
-		return K[n][W];
+		return K[n][kapasiteetti];
 	}
 
 	public static void main(String args[])
 	{
-		int val[] = new int[] { 17, 10, 110 };
-		int wt[] = new int[] { 13, 55, 41 };
+		int arvo[] = new int[] { 17, 10, 110 };
+		int paino[] = new int[] { 13, 55, 41 };
 		
-		int W = 50;
-		int n = val.length;
-		System.out.println(sakki(W, wt, val, n));
+		int kapasiteetti = 50;
+		int n = arvo.length;
+		System.out.println("Suurin hyötyarvo on: " + sakki(kapasiteetti, paino, arvo, n));
 	}
 }
